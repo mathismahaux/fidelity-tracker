@@ -1,0 +1,24 @@
+<div>
+  <h2>Create Gift</h2>
+
+  @if(errorMessage) {
+    <div class="error-message">
+      {{ errorMessage }}
+    </div>
+  }
+
+  @if(successMessage) {
+    <div class="success-message">
+      {{ successMessage }}
+    </div>
+  }
+
+  <form (ngSubmit)="createGift()">
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" [(ngModel)]="name" name="name" required />
+    </div>
+
+    <button type="submit">Create Gift</button>
+  </form>
+</div>

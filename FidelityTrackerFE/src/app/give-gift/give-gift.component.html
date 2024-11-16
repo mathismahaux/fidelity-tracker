@@ -1,0 +1,39 @@
+<div>
+  <h2>Give a Gift</h2>
+
+  @if(errorMessage) {
+    <div class="error-message">
+      {{ errorMessage }}
+    </div>
+  }
+
+  @if(successMessage) {
+    <div class="success-message">
+      {{ successMessage }}
+    </div>
+  }
+
+  <form (ngSubmit)="giveGift()">
+    <div>
+      <label for="person">Select Person:</label>
+      <select [(ngModel)]="selectedPersonId" name="person" id="person" required>
+        <option value="0">Select a person</option>
+        @for(person of people; track $index) {
+          <option [value]="person.id">{{ person.name }}</option>
+        }
+      </select>
+    </div>
+
+    <div>
+      <label for="gift">Select Gift:</label>
+      <select [(ngModel)]="selectedGiftId" name="gift" id="gift" required>
+        <option value="0">Select a gift</option>
+        @for(gift of gifts; track $index) {
+          <option [value]="gift.id">{{ gift.name }}</option>
+        }
+      </select>
+    </div>
+
+    <button type="submit">Give Gift</button>
+  </form>
+</div>

@@ -1,7 +1,9 @@
 using Application.UseCases;
 using Application.UseCases.Gift.Create;
+using Application.UseCases.Gift.FetchAll;
 using Application.UseCases.Person.AssignSponsor;
 using Application.UseCases.Person.Create;
+using Application.UseCases.Person.FetchAll;
 using Application.UseCases.Person.GetDetails;
 using Application.UseCases.Person.GiveGift;
 using Application.UseCases.Person.SearchByName;
@@ -35,12 +37,14 @@ builder.Services.AddDbContext<FidelityTrackerDbContext>(cfg =>
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IGiftRepository, GiftRepository>();
 
+builder.Services.AddScoped<UseCaseFetchAllPeople>();
 builder.Services.AddScoped<UseCaseCreatePerson>();
 builder.Services.AddScoped<UseCaseAssignSponsor>();
 builder.Services.AddScoped<UseCaseSearchPersonByName>();
 builder.Services.AddScoped<UseCaseGetPersonDetails>();
 builder.Services.AddScoped<UseCaseGiveGiftToPerson>();
 
+builder.Services.AddScoped<UseCaseFetchAllGifts>();
 builder.Services.AddScoped<UseCaseCreateGift>();
 
 var app = builder.Build();

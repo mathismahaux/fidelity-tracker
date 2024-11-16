@@ -1,0 +1,29 @@
+<div>
+  <h2>Create Person</h2>
+
+  @if(errorMessage) {
+    <div class="error-message">
+      {{ errorMessage }}
+    </div>
+  }
+
+  @if(successMessage) {
+    <div class="success-message">
+      {{ successMessage }}
+    </div>
+  }
+
+  <form (ngSubmit)="createPerson()">
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" [(ngModel)]="name" name="name" required />
+    </div>
+
+    <div>
+      <label for="sponsor">Sponsor (optional):</label>
+      <input type="number" id="sponsor" [(ngModel)]="idSponsor" name="idSponsor" />
+    </div>
+
+    <button type="submit">Create Person</button>
+  </form>
+</div>

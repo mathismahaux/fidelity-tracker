@@ -1,0 +1,43 @@
+<div class="search-form">
+  <input
+    type="text"
+    [(ngModel)]="searchedName"
+    placeholder="Enter name to search"
+  />
+  <button (click)="search()">Search</button>
+</div>
+
+@if(errorMessage) {
+  <div class="error-message">
+    {{ errorMessage }}
+  </div>
+}
+
+@if(results.length > 0) {
+  <div>
+    <h3>Search Results:</h3>
+    <ul>
+      @for(person of results; track $index) {
+        <li>{{ person.name }}</li>
+        <button (click)="showDetails(person.id)">Display details</button>
+      }
+    </ul>
+  </div>
+}
+
+@if(selectedDetails) {
+  <div>
+    <h3>Details for {{ selectedDetails.name }}:</h3>
+    <p><strong>Sponsored Count:</strong> {{ selectedDetails.sponsoredCount }}</p>
+    <p><strong>Gifts Received:</strong></p>
+    <ul>
+      @for(gift of selectedDetails.giftsRecieved; track $index) {
+        <li>
+          {{gift}}
+        </li>
+      }
+    </ul>
+  </div>
+}
+
+<app-give-gift></app-give-gift>

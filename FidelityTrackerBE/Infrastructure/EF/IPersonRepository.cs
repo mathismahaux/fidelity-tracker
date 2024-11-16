@@ -4,6 +4,7 @@ namespace Infrastructure.EF;
 
 public interface IPersonRepository
 {
+    IEnumerable<DbPerson> FetchAll();
     DbPerson FetchById(int id);
     List<DbPerson> FetchByName(string name);
     int FetchSponsoredPeopleCount(int sponsorId);

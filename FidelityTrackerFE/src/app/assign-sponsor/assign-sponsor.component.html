@@ -1,0 +1,39 @@
+<div>
+  <h2>Assign Sponsor to Person</h2>
+
+  @if(errorMessage) {
+    <div class="error-message">
+      {{ errorMessage }}
+    </div>
+  }
+
+  @if(successMessage) {
+    <div class="success-message">
+      {{ successMessage }}
+    </div>
+  }
+
+  <form (ngSubmit)="assignSponsor()">
+    <div>
+      <label for="person">Person:</label>
+      <select id="person" [(ngModel)]="selectedPersonId" name="person" required>
+        <option value="">Select a person</option>
+        @for(person of people; track $index) {
+          <option [value]="person.id">{{ person.name }}</option>
+        }
+      </select>
+    </div>
+
+    <div>
+      <label for="sponsor">Sponsor:</label>
+      <select id="sponsor" [(ngModel)]="selectedSponsorId" name="sponsor" required>
+        <option value="">Select a sponsor</option>
+        @for(sponsor of sponsors; track $index) {
+          <option [value]="sponsor.id">{{ sponsor.name }}</option>
+        }
+      </select>
+    </div>
+
+    <button type="submit">Assign Sponsor</button>
+  </form>
+</div>

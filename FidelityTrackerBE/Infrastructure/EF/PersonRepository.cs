@@ -12,6 +12,11 @@ public class PersonRepository : IPersonRepository
         _context = context;
     }
     
+    public IEnumerable<DbPerson> FetchAll()
+    {
+        return _context.People.ToList();
+    }
+    
     public DbPerson FetchById(int id)
     {
         return _context.People.SingleOrDefault(p => p.Id == id);

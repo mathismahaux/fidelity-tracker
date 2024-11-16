@@ -2,6 +2,7 @@ using Application.UseCases.Person.AssignSponsor;
 using Application.UseCases.Person.AssignSponsor.DTOs;
 using Application.UseCases.Person.Create;
 using Application.UseCases.Person.Create.DTOs;
+using Application.UseCases.Person.FetchAll;
 using Application.UseCases.Person.GetDetails;
 using Application.UseCases.Person.GetDetails.DTOs;
 using Application.UseCases.Person.GiveGift;
@@ -15,6 +16,7 @@ namespace FidelityTrackerBE.Controllers.Person;
 [Route("people")]
 public class PersonController : ControllerBase
 {
+    private readonly UseCaseFetchAllPeople _useCaseFetchAllPeople;
     private readonly UseCaseCreatePerson _useCaseCreatePerson;
     private readonly UseCaseAssignSponsor _useCaseAssignSponsor;
     private readonly UseCaseSearchPersonByName _useCaseSearchPersonByName;
@@ -22,13 +24,20 @@ public class PersonController : ControllerBase
     private readonly UseCaseGiveGiftToPerson _useCaseGiveGiftToPerson;
 
 
-    public PersonController(UseCaseCreatePerson useCaseCreatePerson, UseCaseAssignSponsor useCaseAssignSponsor, UseCaseSearchPersonByName useCaseSearchPersonByName, UseCaseGetPersonDetails useCaseGetPersonDetails, UseCaseGiveGiftToPerson useCaseGiveGiftToPerson)
+    public PersonController(UseCaseCreatePerson useCaseCreatePerson, UseCaseAssignSponsor useCaseAssignSponsor, UseCaseSearchPersonByName useCaseSearchPersonByName, UseCaseGetPersonDetails useCaseGetPersonDetails, UseCaseGiveGiftToPerson useCaseGiveGiftToPerson, UseCaseFetchAllPeople useCaseFetchAllPeople)
     {
+        _useCaseFetchAllPeople = useCaseFetchAllPeople;
         _useCaseCreatePerson = useCaseCreatePerson;
         _useCaseAssignSponsor = useCaseAssignSponsor;
         _useCaseSearchPersonByName = useCaseSearchPersonByName;
         _useCaseGetPersonDetails = useCaseGetPersonDetails;
         _useCaseGiveGiftToPerson = useCaseGiveGiftToPerson;
+    }
+    
+    [HttpGet]
+    public ActionResult<IEnumerable<DtoOutputPerson>> FetchAll()
+    {
+        return Ok(_useCaseFetchAllPeople.Execute());
     }
 
     [HttpGet("search-by-name")]
@@ -65,7 +74,7 @@ public class PersonController : ControllerBase
     }
     
     [HttpPost("give-gift")]
-    public ActionResult AwardGiftToSponsor(int id, int giftId)
+    public ActionResult AwardGiftToSponsor([FromBody]int id, int giftId)
     {
         var result = _useCaseGiveGiftToPerson.Execute(id, giftId);
 

@@ -1,0 +1,18 @@
+.search-form {
+  margin-bottom: 20px;
+}
+
+.search-form input {
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.search-form button {
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}

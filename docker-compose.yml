@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  ftDb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: ftDatabase
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=yourStrong(!)Password
+    ports:
+      - "1433:1433"
+    volumes:
+      - M:/SQL/data:/var/opt/mssql/data
+      - M:/SQL/log:/var/opt/mssql/log
+      - M:/SQL/secrets:/var/opt/mssql/secrets
+    networks:
+      - ft-network
+    restart: always
+    
+  frontend:
+    build:
+      context: ./FidelityTrackerFE  
+      dockerfile: Dockerfile
+    container_name: ftAngular
+    ports:
+      - "8080:4200"
+    networks:
+      - ft-network
+
+  backend:
+    build: 
+      context: .
+      dockerfile: FidelityTrackerBE/Controller/Dockerfile 
+    container_name: ftApi
+    ports:
+      - "5000:80"
+    depends_on:
+      - ftDb
+    networks:
+      - ft-network
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=ftDb,1433;Database=sponsor_db;User Id=sa;Password=yourStrong(!)Password;TrustServerCertificate=true
+    restart: always
+
+networks:
+  ft-network:
+    driver: bridge

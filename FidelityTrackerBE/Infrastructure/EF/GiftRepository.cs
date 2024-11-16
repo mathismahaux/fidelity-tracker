@@ -11,6 +11,11 @@ public class GiftRepository : IGiftRepository
         _context = context;
     }
 
+    public IEnumerable<DbGift> FetchAll()
+    {
+        return _context.Gifts.ToList();
+    }
+
     public DbGift Create(string name)
     {
         var gift = new DbGift
